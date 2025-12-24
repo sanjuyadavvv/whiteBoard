@@ -7,8 +7,7 @@ import CreateRoom from "./Components/CreateRoom";
 // import Login from "./Components/Login";
 
 
-
-
+import './index.css'
 
 function App() {
   return (
@@ -20,6 +19,7 @@ function App() {
     {/* <Route path="/login" element={<Login/>}/> */}
     </Routes>
       </BrowserRouter>
+
   );
 }
 

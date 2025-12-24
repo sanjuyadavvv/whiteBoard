@@ -15,7 +15,7 @@ export const GoogleAuthentication = () => {
 		try {
 			const code = authResult.code;
 			console.log("Google auth code:", code);
-
+            console.log('error in url in post ')
 			const result = await axios.post(`${API_BASE}/api/auth/google`, { code });
             // console.log(result)
 			const { email, fullName} = result.data.user;

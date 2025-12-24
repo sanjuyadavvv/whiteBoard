@@ -5,64 +5,63 @@ import { useSelector } from "react-redux";
 const socket = io("https://collabboard-cseg.onrender.com");
 
 const GetALLUser = ({showUsers,setShowUsers}) => {
+
   const currentUser = useSelector((state) => state.user.userDetails);
-// console.log('current user is ',currentUser)
+
 
   const roomId=useSelector((state)=>state.user.roomId)
-  const [onlineUsers, setOnlineUsers] = useState({});
+
+
+
+
+
+
+// second code 
+const [onlineUsers, setOnlineUsers] = useState([]);
 
 useEffect(() => {
- socket.on("update-online-users", (users) => {
-      // console.log("Online users from server:", users);
-      setOnlineUsers(users);
-    });
+  if(!currentUser || !roomId) return ;
 
-    // Notify server that user is online (and join room)
-    socket.emit("user-online", { user: currentUser, roomId })
+
+
+
+
+  socket.on("update-online-users", (users) => {
+    const usersArray = Array.isArray(users) ? users : Object.values(users);
+    setOnlineUsers(usersArray);
+  });
+
+  // Notify server user is online
+  if (currentUser && roomId) {
+    socket.emit("user-online", { user: currentUser, roomId });
+  }
 
   return () => {
     socket.off("update-online-users");
   };
 }, [currentUser, roomId]);
 
-
-
-// useEffect(()=>{
-// socket.on('update-online-users',(users)=>{
-//   setOnlineUsers(users);
-// })
-
-// socket.emit("user-online", { user: currentUser, roomId })
-// return ()=>socket.off("update-online-users");
-// },[])
+// Store in localStorage whenever onlineUsers change
+useEffect(() => {
+  localStorage.setItem('users', JSON.stringify(onlineUsers));
+}, [onlineUsers]);
 
 
 
-// useEffect(()=>{
-// if(currentUser && roomId){
-//   socket.emit('user-online',{user:currentUser,roomId})
-// }
-// },[currentUser,roomId])
+
   return (
     <div className="relative">
-      {/* Button to open */}
-      {/* <button
-        onClick={() => setShowUsers(true)}
-        className="px-4 py-2 bg-blue-500  text-white rounded"
-      >
-        Show Online Users
-      </button> */}
-
+     
       {showUsers && (
         <>
           
           <div
             onClick={() => setShowUsers(false)}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            // className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
           />
 
   
-          <div className="fixed top-1/2 left-1/2 w-[400px] h-[500px] 
+          <div className="fixed top-[400px] left-1/2 w-[400px] h-[500px] 
                           -translate-x-1/2 -translate-y-1/2 
                           bg-[white] rounded-lg shadow-[0_0_30px_5px_rgba(0,0,0,0.2)] z-50 p-4 flex flex-col">
            
