@@ -5,6 +5,22 @@ import generateToken from "../Utils/generateToken.js";
 import { OAuth2Client } from 'google-auth-library';
 import axios from 'axios'
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const signup = async (req, res) => {
 
   console.log("data is ", req.body);
@@ -51,6 +67,19 @@ export const signup = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -83,6 +112,19 @@ export const login = async (req, res) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const googleAuth=async(req,res)=>{
   const client=new OAuth2Client(
     process.env.client_id,
@@ -90,6 +132,7 @@ export const googleAuth=async(req,res)=>{
     process.env.redirect_uris
   );
   const code=req.body.code;
+  console.log(process.env.redirect_uris)
   if(!code){
    return res.status(400).json({message:"authrization code is required"});
   }
@@ -124,6 +167,9 @@ export const googleAuth=async(req,res)=>{
     })
   }
 }
+
+
+
 
 
 

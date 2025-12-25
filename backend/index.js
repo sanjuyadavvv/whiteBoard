@@ -24,8 +24,8 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",
-      "https://collabboard-fe.onrender.com",
-      "https://collabboard-cseg.onrender.com",
+      "https://white-board-3lri.vercel.app",
+      "https://whiteboard-4-vedo.onrender.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
