@@ -16,20 +16,14 @@ dotenv.config();
 connect();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cors({
+  origin : ["http://localhost:5173", 
+    "https://white-board-jiid.vercel.app"]
+}));
 
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-      origin: [
-    "http://localhost:5173", // for local dev
-    "https://white-board-jiid.vercel.app/"
-  ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  },
-});
+const io = new Server(server);
 
 // ✅ Cache drawings in memory
 let roomCache = {}; 
